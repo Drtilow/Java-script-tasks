@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Složení čísla ze tří číslic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input[type="number"] {
+      padding: 8px;
+      margin-right: 8px;
+      width: 60px;
+      font-size: 16px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .radek {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #vysledek {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 5px 10px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+    .ok {
+      color: white;
+      background-color: #0275d8;
+    }
+    .chyba {
+      color: white;
+      background-color: #d9534f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Slož číslo ze tří číslic</h1>
+
+  <div class="radek">
+    <input type="number" id="cislice1" min="0" max="9" placeholder="1.">
+    <input type="number" id="cislice2" min="0" max="9" placeholder="2.">
+    <input type="number" id="cislice3" min="0" max="9" placeholder="3.">
+    <button onclick="spocitej()">Složit číslo</button>
+  </div>
+
+  <h2>Výsledek: <span id="vysledek">–</span></h2>
+
+  <script>
+    function spojCisla(a, b, c) {
+      return a * 100 + b * 10 + c;
+    }
+
+    function spocitej() {
+      const a = parseInt(document.getElementById('cislice1').value);
+      const b = parseInt(document.getElementById('cislice2').value);
+      const c = parseInt(document.getElementById('cislice3').value);
+      const vystup = document.getElementById('vysledek');
+      vystup.className = '';
+
+      if (
+        [a, b, c].some(x => isNaN(x) || x < 0 || x > 9)
+      ) {
+        vystup.textContent = 'Zadej platné číslice (0–9)';
+        vystup.classList.add('chyba');
+        return;
+      }
+
+      const vysledek = spojCisla(a, b, c);
+      vystup.textContent = vysledek;
+      vystup.classList.add('ok');
+    }
+  </script>
+
+</body>
+</html>

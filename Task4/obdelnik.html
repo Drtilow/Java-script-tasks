@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Výpočet obsahu obdelníku</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input, button {
+      padding: 8px;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+    .radek {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #vysledek {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 5px 10px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+    .ok {
+      color: white;
+      background-color: #46cd46;
+    }
+    .chyba {
+      color: white;
+      background-color: #d9534f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Výpočet obsahu obdelníku</h1>
+
+  <div class="radek">
+    <input type="number" id="delka" placeholder="Délka / strana">
+    <input type="number" id="sirka" placeholder="Šířka (volitelné)">
+    <button onclick="spocitejObsah()">Spočítat obsah obdelníku</button>
+  </div>
+
+  <h2>Výsledek: <span id="vysledek">–</span></h2>
+
+  <script>
+    function obsah(a, b) {
+      return b === undefined || b === null || b === ''
+        ? a * a
+        : a * b;
+    }
+
+    function spocitejObsah() {
+      const delka = parseFloat(document.getElementById('delka').value);
+      const sirkaRaw = document.getElementById('sirka').value;
+      const sirka = sirkaRaw !== '' ? parseFloat(sirkaRaw) : undefined;
+
+      const vystup = document.getElementById('vysledek');
+      vystup.className = '';
+
+      if (isNaN(delka) || (sirkaRaw !== '' && isNaN(sirka))) {
+        vystup.textContent = 'Zadej alespoň délku jako číslo.';
+        vystup.classList.add('chyba');
+        return;
+      }
+
+      const vysledek = obsah(delka, sirka);
+      vystup.textContent = `Obsah: ${vysledek} m2`;
+      vystup.classList.add('ok');
+    }
+  </script>
+
+</body>
+</html>
