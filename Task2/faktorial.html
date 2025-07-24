@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Výpočet faktoriálu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    #vysledek {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 5px 10px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+    .ok {
+      color: white;
+      background-color: #5cb85c; /* zelená */
+    }
+    .chyba {
+      color: white;
+      background-color: #d9534f; /* červená */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Faktoriál čísla</h1>
+
+  <label for="cislo">Zadej celé číslo:</label><br>
+  <input type="number" id="cislo" min="0"><br>
+
+  <button onclick="vypocitejFaktorial()">Spočítat faktoriál</button>
+
+  <h2>Výsledek: <span id="vysledek">–</span></h2>
+
+  <script>
+    function faktorial(n) {
+      if (n < 0) return undefined;
+      let vysledek = 1;
+      for (let i = 2; i <= n; i++) {
+        vysledek *= i;
+      }
+      return vysledek;
+    }
+
+    function vypocitejFaktorial() {
+      const vstup = document.getElementById('cislo').value;
+      const n = parseInt(vstup);
+      const vystup = document.getElementById('vysledek');
+
+      vystup.className = ''; // reset třídy
+
+      if (isNaN(n)) {
+        vystup.textContent = 'Zadej platné číslo!';
+        vystup.classList.add('chyba');
+        return;
+      }
+
+      const vysledek = faktorial(n);
+
+      if (vysledek === undefined) {
+        vystup.textContent = 'Faktoriál záporného čísla není definován.';
+        vystup.classList.add('chyba');
+      } else {
+        vystup.textContent = `${n}! = ${vysledek}`;
+        vystup.classList.add('ok');
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Porovnání dvou čísel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    #vysledek {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 5px 10px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+    .mensi {
+      color: white;
+      background-color: #d9534f; /* červená */
+    }
+    .vetsi {
+      color: white;
+      background-color: #5cb85c; /* zelená */
+    }
+    .rovno {
+      color: black;
+      background-color: #ccc; /* šedá */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Porovnej dvě čísla</h1>
+
+  <label for="cislo1">První číslo:</label><br>
+  <input type="number" id="cislo1"><br>
+
+  <label for="cislo2">Druhé číslo:</label><br>
+  <input type="number" id="cislo2"><br>
+
+  <button onclick="zobrazVysledek()">Porovnat</button>
+
+  <h2>Výsledek: <span id="vysledek">–</span></h2>
+
+  <script>
+    function porovnejCisla(a, b) {
+      return a < b ? -1 : a > b ? 1 : 0;
+    }
+
+    function zobrazVysledek() {
+      const a = parseFloat(document.getElementById('cislo1').value);
+      const b = parseFloat(document.getElementById('cislo2').value);
+      const vystup = document.getElementById('vysledek');
+
+      // Reset stylů
+      vystup.className = '';
+
+      if (isNaN(a) || isNaN(b)) {
+        vystup.textContent = 'Zadej obě čísla!';
+        return;
+      }
+
+      const vysledek = porovnejCisla(a, b);
+      vystup.textContent = vysledek;
+
+      // Nastavení barvy dle výsledku
+      if (vysledek === -1) {
+        vystup.classList.add('mensi');
+      } else if (vysledek === 1) {
+        vystup.classList.add('vetsi');
+      } else {
+        vystup.classList.add('rovno');
+      }
+    }
+  </script>
+
+</body>
+</html>
